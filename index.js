@@ -1,6 +1,7 @@
 const fs = require('fs');
 const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown");
+// store our questions as an array of objects formatted so that inquirer can ask them.
 const questions = [
     {message: 'File to write to, including file extension:',name:'filename',type:'input',default:'README.md'},
     {message: "A creative title:",name:'title',type:'input',default:'New Project'},
@@ -11,6 +12,7 @@ const questions = [
     {message: "What're some ways to test this:",name:"testing",type:'input',default:'There are no specific testing instructions'},
     {message: "How can users contribute, if at all:",name:"contributing",type:'input',default:'Contribute through GitHub forks and issues'},
     {message: "Lets give it a license:",name:"license",type:'list',
+        // these choices are formatted so that the regex in generateMarkdown.js can find their badge.
         choices: [
             'Apache 2.0',
             'BSL 1.0',
@@ -25,18 +27,24 @@ const questions = [
     {message: "What's your GitHub username:",name:"username",type:'input'},
     {message: "What's the email associated with that username:",name:"email",type:'password'}
 ]
-
+// write to markdown files using filename and the data to use
 function writeToFile(fileName, data) {
+    // writefile will override anything already present in the file or create a new one if the file doesn't exist. use generateMarkdown() to format data accoridingly.
     fs.writeFile(fileName, generateMarkdown(data), function(err){
+        // the type of errors that fs can throw, like bus errors, can be devistating. Best to quit if one is thrown.
         if(err) throw err;
+        // confirm to user that the readme was succesfully generated.
         console.log(`README for ${data['title']} was generated`);
     })
 }
-
+// function to run on start
 function init() {
+    // Let the user know how to add newlines
     console.log('To add newlines in markdown use two consecutive spaces');
+    // get user response via inquirer and our defined questions above.
     inquirer.prompt(questions)
     .then(response => {
+        // write to the readme given the users response.
         writeToFile(response['filename'],response);
     });
 }
