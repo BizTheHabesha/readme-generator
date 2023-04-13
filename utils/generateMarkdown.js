@@ -1,3 +1,4 @@
+// badge refrences from shields.io including the badge svg and a link, formatted to be used in a markdown file.
 const badgeRefs = {
     Apache_20: '[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)',
     BSL_10:'[![License](https://img.shields.io/badge/License-Boost_1.0-lightblue.svg)](https://www.boost.org/LICENSE_1_0.txt)',
@@ -11,17 +12,22 @@ const badgeRefs = {
 }
 
 function renderLicenseBadge(license) {
+    // replace spaces with underscore and remove periods all together so badgeRefs can find the badge
     license = license.replace(/\s/g,'_').replace(/\./g,'');
+    // return the badge and its link from badgeRefs object.
     return badgeRefs[license];
 }
 
 function renderLicenseSection(license) {
+    // render the heading including the badge from reanderLicenseBadge(). Display different content based on if there is a license or not
     return `## License ${renderLicenseBadge(license)}\n${license == 'none' ? 'This project is not licensed  ' : `Licensed ${license}  `}\n`
 }
-
+// transform an object into a string to be used in a markdown file
 function generateMarkdown(data) {
+    // if the user chose to put their instructions in bash, display the instructions in a bash code block
     data['install'] = data['installmethod'] === 'bash' ? `\`\`\`bash\n${data['install']}\n\`\`\`` : data['install'];
+    // add hashtags for headings, underscores for horizontal breaks, and get the user specified data. Use renderLicenseSection for the license section specifically.
     return `# ${data['title']}\n${data['description']}\n## Installation\n${data['install']}\n___\n## Usage\n${data['use']}\n___\n## Testing\n${data['testing']}\n___\n## Contributing\n${data['contributing']}\n___\n${renderLicenseSection(data['license'])}\n`
 }
-
+// export the the generateMarkdown function so we can use it elsewhere.
 module.exports = generateMarkdown;
