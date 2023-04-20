@@ -11,6 +11,9 @@ const questions = [
     {message: "How should the user use this:",name:"use",type:'input',default:'There are no specific usage instructions'},
     {message: "What're some ways to test this:",name:"testing",type:'input',default:'There are no specific testing instructions'},
     {message: "How can users contribute, if at all:",name:"contributing",type:'input',default:'Contribute through GitHub forks and issues'},
+    {message: "What's your GitHub username:",name:"username",type:'input'},
+    {message: "What's the email associated with that username:",name:"email",type:'password'},
+    {message: "How should people contact you with questions, if at all. Use +email or +username to add those into your text:",name:"questions", type:'input', default: 'Email +email or contact +username on Github'},
     {message: "Lets give it a license:",name:"license",type:'list',
         // these choices are formatted so that the regex in generateMarkdown.js can find their badge.
         choices: [
@@ -23,9 +26,7 @@ const questions = [
             'IBM Public License Version 1.0',
             'MIT',
             'none'
-        ],default:'none'},
-    {message: "What's your GitHub username:",name:"username",type:'input'},
-    {message: "What's the email associated with that username:",name:"email",type:'password'}
+        ],default:'none'}
 ]
 // write to markdown files using filename and the data to use
 function writeToFile(fileName, data) {
@@ -40,7 +41,7 @@ function writeToFile(fileName, data) {
 // function to run on start
 function init() {
     // Let the user know how to add newlines
-    console.log('To add newlines in markdown use two consecutive spaces');
+    console.log('To add newlines, please use +n');
     // get user response via inquirer and our defined questions above.
     inquirer.prompt(questions)
     .then(response => {
