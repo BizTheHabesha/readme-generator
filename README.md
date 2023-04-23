@@ -11,8 +11,9 @@ A short node pgram that will create a README for your project to be used on Gith
   - [License ](#license-)
 ___
 ## Installation
-Download the repository and run  
-```bash  
+Download the repository and run the following commands:
+```bash
+npm install
 node index.js  
 ```  
 Be sure to have Node.js installed before running!
