@@ -1,5 +1,5 @@
 # README Generator
-A short node pgram that will create a README for your project to be used on Github. Just answer a short few questions.
+A short node program that will create a README for your project to be used on Github. Just answer a short few questions.
 ## Table of Contents
 - [README Generator](#readme-generator)
   - [Table of Contents](#table-of-contents)
@@ -11,11 +11,13 @@ A short node pgram that will create a README for your project to be used on Gith
   - [License ](#license-)
 ___
 ## Installation
-Download the repository and run  
-```bash  
+Download the repository and run the following commands:
+```bash
+npm install
 node index.js  
 ```  
-Be sure to have Node.js installed before running!
+Be sure to have Node.js installed before running!  
+You can also watch this [video](https://youtu.be/ei6d67J_plE) for a quick demo.
 ___
 ## Usage
 README is speicfically formatted to be used on Github (i.e. no HTML and no plugin-specific features)
